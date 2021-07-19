@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:dataTable value="#{articlesManagedBean.articlesList}" var="article" cellpadding="2" cellspacing="0" border="1">
+            <h:dataTable value="#{shoppingCartManagedBean.cart}" var="article" cellpadding="2" cellspacing="0" border="1">
                 <h:column>
                     <f:facet name="header">Id</f:facet>
                         #{article.id}
@@ -25,14 +25,10 @@
                     <f:facet name="header">Price per unit</f:facet>
                         #{article.pricePerUnit}
                 </h:column>
-                <h:column>
-                    <f:facet name="header">Buy</f:facet>
-                    <h:commandButton value="Order now" action="#{shoppingCartManagedBean.addToCart(article)}"></h:commandButton>
-                </h:column>
             </h:dataTable>
         </h:form>
         <br></br>
-        <h:button value="Cart" outcome="cart"></h:button>
+        <h:button value="Continue Shopping" outcome="index"></h:button>
     </h:body>
 </html>
 
