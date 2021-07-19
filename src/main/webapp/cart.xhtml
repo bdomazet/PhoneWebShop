@@ -26,10 +26,10 @@
                         #{article.pricePerUnit}
                 </h:column>
             </h:dataTable>
+            <h:commandButton value="Buy" action="#{shoppingCartManagedBean.buy()}" />
         </h:form>
         <br></br>
         <h:button value="Continue Shopping" outcome="index"></h:button>
-        <h:button value="Buy" outcome="index"></h:button>
     </h:body>
 </html>
 
