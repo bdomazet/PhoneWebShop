@@ -9,7 +9,7 @@
     <h:body>
         <h1>Admin Page</h1>
         <h:form>
-            <h:dataTable value="#{articlesManagedBean.articlesList}" var="articles">
+            <h:dataTable value="#{articlesManagedBean.articlesList}" var="articles" cellpadding="2" cellspacing="0" border="1">
                 <h:column>
                     <f:facet name="header">Id</f:facet>
                         #{articles.id}

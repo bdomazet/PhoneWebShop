@@ -25,6 +25,10 @@
                     <f:facet name="header">Price per unit</f:facet>
                         #{article.pricePerUnit}
                 </h:column>
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                        #{article.pricePerUnit*article.amount}
+                </h:column>
             </h:dataTable>
             <br></br>
             <br></br>
