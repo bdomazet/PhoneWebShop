@@ -36,6 +36,9 @@ public class ArticlesManagedBean implements Serializable {
         _articlesList = articlesFacadeLocal.findAll();
     }
 
+    @Inject
+    UserManagedBean userManagedBean;
+
     public ArticlesManagedBean() {
 
     }
@@ -95,10 +98,14 @@ public class ArticlesManagedBean implements Serializable {
             articlesFacadeLocal.edit(articleTemp);
             init();
         }
-        return "index";
+        if (userManagedBean.getPrivilegeTemp() == 1) {
+            return "admin";
+        } else {
+            return "editor";
+        }
     }
 
-        public String addArticle() {
+    public String addArticle() {
         Articles articleTemp = new Articles(null, articleName, articleAmount, articlePrice);
         articlesFacadeLocal.create(articleTemp);
         init();

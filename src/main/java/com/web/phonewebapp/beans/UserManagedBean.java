@@ -12,7 +12,7 @@ import com.web.phonewebapp.entity.facade.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -21,7 +21,7 @@ import javax.inject.Named;
  * @author borisdom
  */
 @Named(value = "userManagedBean")
-@RequestScoped
+@SessionScoped
 public class UserManagedBean implements Serializable {
 
     private List<User> _userList;
@@ -68,11 +68,16 @@ public class UserManagedBean implements Serializable {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
-    
-    
 
+    public int getPrivilegeTemp() {
+        return privilegeTemp;
+    }
+    
     public String login() {
         User user = userFacadeLocal.findByUsername(usernameInput);
+        if(user==null){
+            return "login";
+        }
         if (usernameInput != null && passwordInput != null) {
             if (user.getUsername() != null && user.getPassword() != null) {
                 if (usernameInput.equals(user.getUsername()) && passwordInput.equals(user.getPassword())) {
