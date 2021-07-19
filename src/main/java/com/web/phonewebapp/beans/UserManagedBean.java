@@ -5,7 +5,9 @@
  */
 package com.web.phonewebapp.beans;
 
+import com.web.phonewebapp.entity.Privilege;
 import com.web.phonewebapp.entity.User;
+import com.web.phonewebapp.entity.facade.PrivilegeFacadeLocal;
 import com.web.phonewebapp.entity.facade.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +37,9 @@ public class UserManagedBean implements Serializable {
     private void init() {
         _userList = userFacadeLocal.findAll();
     }
+    
+    @Inject
+    PrivilegeFacadeLocal privilegeFacadeLocal;
 
     public UserManagedBean() {
 
@@ -82,6 +87,16 @@ public class UserManagedBean implements Serializable {
         } else {
             return "";
         }
+    }
+    
+        public String register() {
+        User user = new User();
+        Privilege privilege = privilegeFacadeLocal.find(roleId);
+        user.setIdPrivilege(privilege);
+        user.setUsername(usernameInput);
+        user.setPassword(passwordInput);
+        userFacadeLocal.create(user);
+        return "login";
     }
 
 }

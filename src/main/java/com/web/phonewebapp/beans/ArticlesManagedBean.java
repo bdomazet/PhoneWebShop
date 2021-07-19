@@ -83,7 +83,6 @@ public class ArticlesManagedBean implements Serializable {
     public String removeArticle(Integer articleId) {
         Articles articleTemp = articlesFacadeLocal.find(articleId);
         articlesFacadeLocal.remove(articleTemp);
-        init();
         return "index";
     }
 
@@ -96,7 +95,7 @@ public class ArticlesManagedBean implements Serializable {
             articlesFacadeLocal.edit(articleTemp);
             init();
         }
-        return "editor";
+        return "index";
     }
 
         public String addArticle() {

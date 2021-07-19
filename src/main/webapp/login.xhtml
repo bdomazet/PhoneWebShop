@@ -9,12 +9,12 @@
     <h:body>
         <h1>Login form</h1>
         <h:form>
-            Input Username: <h:inputText value="#{userManagedBean.usernameInput}"/>
-
+            Input Username: <h:inputText id="username" value="#{userManagedBean.usernameInput}" required="true" requiredMessage="Username required"/>
+            <h:message for="username" style="color: red"/>
             <br></br>
 
-            Input Password: <h:inputSecret value="#{userManagedBean.passwordInput}"/>
-
+            Input Password: <h:inputSecret id="password" value="#{userManagedBean.passwordInput}" required="true" requiredMessage="Password required"/>
+            <h:message for="password" style="color: red"/>
             <br></br>
 
             <h:commandButton value="Submit" action="#{userManagedBean.login()}" />
