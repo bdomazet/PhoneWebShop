@@ -30,6 +30,9 @@
                     <h:commandButton value="Order now" action="#{shoppingCartManagedBean.addToCart(article)}"></h:commandButton>
                 </h:column>
             </h:dataTable>
+            <br></br>
+            <h:outputText value="Type desired amount: "></h:outputText>
+            <h:inputText value="#{shoppingCartManagedBean.amount}"></h:inputText>
         </h:form>
         <br></br>
         <h:button value="Cart" outcome="cart"></h:button>

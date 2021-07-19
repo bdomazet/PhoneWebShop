@@ -12,6 +12,11 @@ import javax.inject.Named;
 public class ShoppingCartManagedBean implements Serializable{
     
     private List<Articles> cart = new ArrayList<>();
+    private int amount;
+    
+    public ShoppingCartManagedBean(){
+        
+    }
 
     public List<Articles> getCart() {
         return cart;
@@ -20,10 +25,20 @@ public class ShoppingCartManagedBean implements Serializable{
     public void setCart(List<Articles> cart) {
         this.cart = cart;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
     
     public String addToCart(Articles article){
-        cart.add(article);
+        cart.add(new Articles(article.getId(), article.getName(), amount, article.getPricePerUnit()));
         return "index";
     }
+    
+    
     
 }
