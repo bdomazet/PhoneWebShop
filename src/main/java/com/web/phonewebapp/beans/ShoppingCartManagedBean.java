@@ -55,13 +55,14 @@ public class ShoppingCartManagedBean implements Serializable{
         Date date = new Date();
         Double totalPrice = 0.0;
         for(Articles article : cart){
-            billContent += article.getId() + " " + article.getName() + " " + article.getAmount() + " " + article.getPricePerUnit() + " -: " + article.getAmount()*article.getPricePerUnit() + "\r\n";
+            billContent += "ID: " + article.getId() + ", article name: " + article.getName() + ", ordered amount: " + article.getAmount() + ", price per unit: " + article.getPricePerUnit() + ", price:  " + article.getAmount()*article.getPricePerUnit() + "\r\n";
             totalPrice += article.getAmount()*article.getPricePerUnit();
             Articles articleTemp = articlesFacadeLocal.find(article.getId());
             articleTemp.setAmount((articleTemp.getAmount()-article.getAmount()));
             articlesFacadeLocal.edit(articleTemp);
         }
         Bill bill = new Bill();
+        bill.setId(null);
         bill.setBillContent(billContent);
         bill.setTotalPrice(totalPrice);
         bill.setCreatedAt(date);
