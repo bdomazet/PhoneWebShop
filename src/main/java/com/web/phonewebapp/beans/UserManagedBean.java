@@ -18,22 +18,70 @@ import javax.inject.Named;
  *
  * @author borisdom
  */
-@Named(value = "UserManagedBean")
+@Named(value = "userManagedBean")
 @RequestScoped
-public class UserManagedBean implements Serializable{
-    
+public class UserManagedBean implements Serializable {
+
     private List<User> _userList;
-    
+    private String usernameInput;
+    private String passwordInput;
+    private int roleId;
+    private int privilegeTemp;
+
     @Inject
     UserFacadeLocal userFacadeLocal;
-    
+
     @PostConstruct
-    private void init(){
+    private void init() {
         _userList = userFacadeLocal.findAll();
     }
-    
-    public UserManagedBean(){
-        
+
+    public UserManagedBean() {
+
+    }
+
+    public String getUsernameInput() {
+        return usernameInput;
+    }
+
+    public void setUsernameInput(String usernameInput) {
+        this.usernameInput = usernameInput;
+    }
+
+    public String getPasswordInput() {
+        return passwordInput;
+    }
+
+    public void setPasswordInput(String passwordInput) {
+        this.passwordInput = passwordInput;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
     
+    
+
+    public String login() {
+        User user = userFacadeLocal.findByUsername(usernameInput);
+        if (usernameInput != null && passwordInput != null) {
+            if (user.getUsername() != null && user.getPassword() != null) {
+                if (usernameInput.equals(user.getUsername()) && passwordInput.equals(user.getPassword())) {
+                    privilegeTemp = user.getIdPrivilege().getId();
+                }
+            }
+        }
+        if (privilegeTemp == 1) {
+            return "admin";
+        } else if (privilegeTemp == 2) {
+            return "editor";
+        } else {
+            return "";
+        }
+    }
+
 }

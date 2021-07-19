@@ -21,19 +21,23 @@ import javax.inject.Named;
 @Named(value = "articlesManagedBean")
 @RequestScoped
 public class ArticlesManagedBean implements Serializable {
-    
+
     private List<Articles> _articlesList;
-    
+    private Integer articleId = null;
+    private String articleName = null;
+    private int articleAmount = 0;
+    private double articlePrice = 0.0;
+
     @Inject
     ArticlesFacadeLocal articlesFacadeLocal;
-    
+
     @PostConstruct
-    private void init(){
+    private void init() {
         _articlesList = articlesFacadeLocal.findAll();
     }
-    
-    public ArticlesManagedBean(){
-        
+
+    public ArticlesManagedBean() {
+
     }
 
     public List<Articles> getArticlesList() {
@@ -43,6 +47,62 @@ public class ArticlesManagedBean implements Serializable {
     public void setArticlesList(List<Articles> _articlesList) {
         this._articlesList = _articlesList;
     }
-    
-    
+
+    public Integer getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getArticleName() {
+        return articleName;
+    }
+
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
+    }
+
+    public int getArticleAmount() {
+        return articleAmount;
+    }
+
+    public void setArticleAmount(int articleAmount) {
+        this.articleAmount = articleAmount;
+    }
+
+    public double getArticlePrice() {
+        return articlePrice;
+    }
+
+    public void setArticlePrice(double articlePrice) {
+        this.articlePrice = articlePrice;
+    }
+
+    public String removeArticle(Integer articleId) {
+        Articles articleTemp = articlesFacadeLocal.find(articleId);
+        articlesFacadeLocal.remove(articleTemp);
+        init();
+        return "index";
+    }
+
+    public String updateArticle() {
+        Articles articleTemp = articlesFacadeLocal.find(articleId);
+        if (articleTemp != null) {
+            articleTemp.setName(articleName);
+            articleTemp.setAmount(articleAmount);
+            articleTemp.setPricePerUnit(articlePrice);
+            articlesFacadeLocal.edit(articleTemp);
+            init();
+        }
+        return "editor";
+    }
+
+        public String addArticle() {
+        Articles articleTemp = new Articles(null, articleName, articleAmount, articlePrice);
+        articlesFacadeLocal.create(articleTemp);
+        init();
+        return "admin";
+    }
 }

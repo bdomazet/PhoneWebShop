@@ -6,9 +6,11 @@
 package com.web.phonewebapp.entity.facade;
 
 import com.web.phonewebapp.entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,13 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     public UserFacade() {
         super(User.class);
     }
-    
+
+    @Override
+    public User findByUsername(String username) {
+        Query query = em.createNamedQuery("User.findByUsername");
+        query.setParameter("username", username);
+        List resultList = query.getResultList();
+        return resultList.isEmpty() ? null : (User) resultList.iterator().next();
+    }
+
 }
