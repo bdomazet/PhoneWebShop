@@ -32,15 +32,15 @@
 
             <br></br>
             <br></br>
-            
+
             <h3>Please input Article ID, Name, Amount and Price from the list above</h3>
 
-            Input Article ID: <h:inputText value="#{articlesManagedBean.articleId}" required="true" requiredMessage="ID is mandatory"/>
-
+            Input Article ID: <h:inputText id="id" value="#{articlesManagedBean.articleId}" required="true" requiredMessage="ID is mandatory"/>
+            <h:message for="id" style="color: red"/>
             <br></br>
 
-            Input Article Name: <h:inputText value="#{articlesManagedBean.articleName}"/>
-
+            Input Article Name: <h:inputText id="name" value="#{articlesManagedBean.articleName}"/>
+            <h:message for="name" style="color: red"/>
             <br></br>
 
             Input Article Amount: <h:inputText value="#{articlesManagedBean.articleAmount}"/>
