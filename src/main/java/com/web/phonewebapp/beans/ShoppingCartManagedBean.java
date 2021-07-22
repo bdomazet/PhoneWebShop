@@ -48,8 +48,7 @@ public class ShoppingCartManagedBean implements Serializable {
     public String addToCart(Articles article) {
         for (Articles articlesTemp : cart) {
             if (article.getId() == articlesTemp.getId()) {
-                int amountTemp2 = articlesTemp.getAmount() + amount;
-                articlesTemp.setAmount(amountTemp2);
+                articlesTemp.setAmount(articlesTemp.getAmount() + amount);
                 return "index";
             }
         }
