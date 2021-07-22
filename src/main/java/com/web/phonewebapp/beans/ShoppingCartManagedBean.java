@@ -14,19 +14,19 @@ import javax.inject.Named;
 
 @Named(value = "shoppingCartManagedBean")
 @SessionScoped
-public class ShoppingCartManagedBean implements Serializable{
-    
+public class ShoppingCartManagedBean implements Serializable {
+
     private List<Articles> cart = new ArrayList<>();
     private int amount;
-    
+
     @Inject
     ArticlesFacadeLocal articlesFacadeLocal;
-    
+
     @Inject
     BillFacadeLocal billFacadeLocal;
-    
-    public ShoppingCartManagedBean(){
-        
+
+    public ShoppingCartManagedBean() {
+
     }
 
     public List<Articles> getCart() {
@@ -44,21 +44,28 @@ public class ShoppingCartManagedBean implements Serializable{
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    
-    public String addToCart(Articles article){
+
+    public String addToCart(Articles article) {
+        for (Articles articlesTemp : cart) {
+            if (article.getId() == articlesTemp.getId()) {
+                int amountTemp2 = articlesTemp.getAmount() + amount;
+                articlesTemp.setAmount(amountTemp2);
+                return "index";
+            }
+        }
         cart.add(new Articles(article.getId(), article.getName(), amount, article.getPricePerUnit()));
         return "index";
     }
-    
-    public String buy(){
+
+    public String buy() {
         String billContent = "";
         Date date = new Date();
         Double totalPrice = 0.0;
-        for(Articles article : cart){
-            billContent += "Article name: " + article.getName() + ", ordered amount: " + article.getAmount() + ", price:  " + article.getAmount()*article.getPricePerUnit() + ";\r\n";
-            totalPrice += article.getAmount()*article.getPricePerUnit();
+        for (Articles article : cart) {
+            billContent += "Article name: " + article.getName() + ", ordered amount: " + article.getAmount() + ", price:  " + article.getAmount() * article.getPricePerUnit() + ";\r\n";
+            totalPrice += article.getAmount() * article.getPricePerUnit();
             Articles articleTemp = articlesFacadeLocal.find(article.getId());
-            articleTemp.setAmount((articleTemp.getAmount()-article.getAmount()));
+            articleTemp.setAmount((articleTemp.getAmount() - article.getAmount()));
             articlesFacadeLocal.edit(articleTemp);
         }
         Bill bill = new Bill();
@@ -69,6 +76,5 @@ public class ShoppingCartManagedBean implements Serializable{
         billFacadeLocal.create(bill);
         return "index";
     }
-    
-    
+
 }
